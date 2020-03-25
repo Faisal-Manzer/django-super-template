@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test WebSocket</title>
+</head>
+<body>
+<h1>
+    WebSocket Test
+</h1>
+
+<div id="test-result">
+    <div>Testing...</div>
+</div>
+
+<script>
+    var startTime = new Date().getTime();
+
+    function log(message, event, logType = console.log) {
+        logType(message, event);
+        var messageNode = document.createElement('div');
+        messageNode.innerText = message;
+        document.getElementById('test-result').append(messageNode);
+    }
+
+    log('Connecting...');
+    const socket = new WebSocket('ws://' + window.location.host + '/example/test/');
+
+    socket.onopen = function (event) {
+        log('Connected...', event, console.log);
+        socket.send(JSON.stringify({
+            type: 'ping'
+        }));
+    };
+    socket.onmessage = function (event) {
+        log('Received message from socket: ' + event.data, event);
+        var data = JSON.parse(event.data);
+
+        if (data.message === 'pong')
+            log('Test success');
+        else
+            log('Test failed');
+
+        socket.close();
+    };
+
+    socket.onclose = function (e) {
+        log('Socket closed.', e);
+        log('Time taken: ' + (new Date().getTime() - startTime) + 'ms')
+    };
+</script>
+</body>
+</html>

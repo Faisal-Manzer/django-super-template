@@ -1,0 +1,21 @@
+.idea
+.vscode
+env
+**/.DS_Store
+venv
+**/__pycache__/
+mysql.sock
+temp
+secrets.json
+secrets.*.json
+!secrets.example.json
+__config__/keys/**
+*.icloud
+s
+m
+dump.rdb
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

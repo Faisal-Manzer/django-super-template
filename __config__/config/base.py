@@ -17,8 +17,8 @@ PRODUCTION = SECRET['DJANGO']['PRODUCTION']
 
 ALLOWED_HOSTS = []
 ROOT_URLCONF = '__config__.urls'
-WSGI_APPLICATION = '__config__.wsgi.APPLICATION'
-ASGI_APPLICATION = '__config__.asgi.APPLICATION'
+WSGI_APPLICATION = '__config__.wsgi.application'
+ASGI_APPLICATION = '__config__.routing.application'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -1,16 +1,12 @@
-"""Overrides wsgi server for websocket control"""
+"""
+ASGI entrypoint. Configures Django and then runs the application
+defined in the ASGI_APPLICATION setting.
+"""
 
+import os
+import django
+from channels.routing import get_default_application
 
-from channels.auth import AuthMiddlewareStack
-from channels.routing import ProtocolTypeRouter, URLRouter
-from __config__.urls import websocket
-
-
-APPLICATION = ProtocolTypeRouter({
-    # (http->django views is added by default)
-    'websocket': AuthMiddlewareStack(
-        URLRouter(
-            websocket.ws_urlpatterns
-        )
-    ),
-})
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "__config__.settings")
+django.setup()
+application = get_default_application()
